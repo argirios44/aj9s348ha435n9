@@ -55,7 +55,7 @@ int main( int argc, char** argv ) {
 	fclose(file);
 	int ndoubles_loc=filesize_data/(sizeof(double)*totnp);
 	double *locdata=malloc(ndoubles_loc*sizeof(double));
-    int starts = ndoubles_loc*rank;
+    	int starts = ndoubles_loc*rank;
 	MPI_Type_create_subarray(1,&filesize_data,&ndoubles_loc,&starts,MPI_ORDER_C,MPI_DOUBLE,&fileview);
 	MPI_Type_commit(&fileview);
 	MPI_File_open(MPI_COMM_WORLD,"data.bin",MPI_MODE_RDONLY,MPI_INFO_NULL,&in);
@@ -65,7 +65,7 @@ int main( int argc, char** argv ) {
 	filesize_labels=filesize_data/columns;
 	ndoubles_loc=filesize_labels/(sizeof(double)*totnp);
 	double *loclabels=malloc(ndoubles_loc*sizeof(double));
-    starts = ndoubles_loc*rank;
+   	starts = ndoubles_loc*rank;
 	MPI_Type_create_subarray(1,&filesize_labels,&ndoubles_loc,&starts,MPI_ORDER_C,MPI_DOUBLE,&fileview);
 	MPI_Type_commit(&fileview);
 	MPI_File_open(MPI_COMM_WORLD,"labels.bin",MPI_MODE_RDONLY,MPI_INFO_NULL,&in);
@@ -141,7 +141,7 @@ int main( int argc, char** argv ) {
 	int ndoubles_out=rows*K;
 	starts=ndoubles_out*rank;
 	MPI_Type_create_subarray(1,&size_out,&ndoubles_out,&starts, MPI_ORDER_C, MPI_DOUBLE, &fileview);
-    MPI_Type_commit(&fileview);
+    	MPI_Type_commit(&fileview);
 	MPI_File_open(MPI_COMM_WORLD,"results.bin",MPI_MODE_WRONLY|MPI_MODE_CREATE,MPI_INFO_NULL,&out);
 	MPI_File_set_view(out,(MPI_Offset)0,MPI_DOUBLE,fileview,"native",MPI_INFO_NULL);
 	MPI_File_write_all(out,&knn_array[0][0],ndoubles_out,MPI_DOUBLE,&status);
