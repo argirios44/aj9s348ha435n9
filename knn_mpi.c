@@ -28,10 +28,10 @@ double **Create2DarrayDouble(int rows, int clmn);
 
 int main( int argc, char** argv ) {
 	int i,j,k,p,a;
-	int ierr,sendto,rcvfrom,err,correct=0;
+	int ierr,sendto,rcvfrom,err;
 	int filesize_data,filesize_labels,size,*label_fin,distances_clmn;
 	FILE *file;
-	double acc,begin_time,end_time;	
+	double begin_time,end_time;	
 	MPI_File in,out;
 	MPI_Status status;
 	MPI_Datatype fileview;
