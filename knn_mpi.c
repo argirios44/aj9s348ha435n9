@@ -80,7 +80,6 @@ int main( int argc, char** argv ) {
 	double **testdata=Create2DarrayDouble(rows,columns);
 	double **traindata=Create2DarrayDouble(rows,columns);
 	int *labelsset=malloc(sizeof(int)*ndoubles_loc);
-	int *labelsset_orig=malloc(sizeof(int)*ndoubles_loc);
 	label_fin=(int*)malloc(sizeof(int)*(ndoubles_loc));
 	distances_struct **distances=Create2DarrayStruct(rows,distances_clmn);
 	distances_struct **knn_array=Create2DarrayStruct(rows,3*K);
@@ -89,7 +88,6 @@ int main( int argc, char** argv ) {
 		traindata[res.quot][res.rem]=locdata[i];
 		testdata[res.quot][res.rem]=locdata[i];
 		labelsset[res.quot]=loclabels[res.quot];
-		labelsset_orig[res.quot]=loclabels[res.quot];
 	}	
 	MPI_Barrier(MPI_COMM_WORLD);
 	begin_time=MPI_Wtime();
@@ -130,22 +128,8 @@ int main( int argc, char** argv ) {
 		//MPI_Irecv(&traindata_new[0][0],rows*columns,MPI_DOUBLE,rcvfrom,MPI_ANY_TAG,MPI_COMM_WORLD,&rcv_req);
 	}
 	find_classes(knn_array,label_fin);	
-	for (i=0;i<rows;i++){
-		if (labelsset_orig[i]==label_fin[i]) correct++;
-	}
-	acc=((double)correct/(double)rows)*100;
-	printf("\n%f\n",acc);
 	MPI_Barrier(MPI_COMM_WORLD);
 	end_time=MPI_Wtime();
-	/*int size_out=totnp*sizeof(knn_array[0][0])*rows*K;
-	int ndoubles_out=rows*K;
-	starts=ndoubles_out*rank;
-	MPI_Type_create_subarray(1,&size_out,&ndoubles_out,&starts, MPI_ORDER_C, MPI_DOUBLE, &fileview);
-    	MPI_Type_commit(&fileview);
-	MPI_File_open(MPI_COMM_WORLD,"results.bin",MPI_MODE_WRONLY|MPI_MODE_CREATE,MPI_INFO_NULL,&out);
-	MPI_File_set_view(out,(MPI_Offset)0,MPI_DOUBLE,fileview,"native",MPI_INFO_NULL);
-	MPI_File_write_all(out,&knn_array[0][0],ndoubles_out,MPI_DOUBLE,&status);
-	MPI_File_close(&out);*/
 	MPI_Finalize();
 	if (rank==0) printf("\nTime elapsed=%f sec\n",end_time-begin_time);
 }
