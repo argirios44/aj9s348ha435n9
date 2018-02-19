@@ -1,4 +1,3 @@
-//incomplete//
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -18,15 +17,14 @@ __global__ void mykernel(double* X_dev,double* Y_dev,double* temp,double* temp_v
 			double dist=0;
 			
 			for (j=0;j<size;j++){
-				float* thing=(float*)((double*)X_dev+j*pitch);
 				for (a=0;a<dim;a++){
-					dist+=pow(Y_dev[i][a]-thing[a],2);
+					dist+=pow(Y_dev[i][a]-X_dev[j][a],2);
 				}
 				dist=sqrt(dist);
 				if (dist<=pow(s,2)){
 					s1=exp(-1*pow(dist,2)/(2*pow(s,2)));
 					for (z=0;z<dim;z++){
-						temp[j][z]=thing[z];
+						temp[j][z]=X_dev[j][z];
 						temp[j][z]*=s1;
 						temp_vect[z]+=temp[j][z];
 					}
@@ -39,7 +37,7 @@ __global__ void mykernel(double* X_dev,double* Y_dev,double* temp,double* temp_v
 			for (j=0;j<dim;j++){
 				m_vect[j]=temp_vect[j]-Y_dev[i][j];
 				Y_dev[i][j]=temp_vect[j];
-				m_norm+=pow(m_vect[j],2);
+				m_norm+=pow(m_vect[j],2)
 			}
 			m_norm=sqrt(m_norm);
 		}
