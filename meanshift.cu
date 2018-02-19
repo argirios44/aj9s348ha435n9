@@ -77,38 +77,7 @@ int main(int argc,char **argv) {
 	cudaMemcpy2D(Y_dev,pitch,Y,dim*sizeof(double),dim*sizeof(double),size,cudaMemcpyHostToDevice);
 	int blocks=N/100;
 	mykernel<<<blocks,100>>>(X_dev,Y_dev,temp,temp_vect,m_vect,size,dim);
-	/*for (i=0;i<N;i++){
-		m_norm=e+1;
-		while (m_norm>e){
-			m_norm=0;
-			s1=0;
-			s2=0;
-			for (j=0;j<dim;j++){
-				temp_vect[j]=0;
-			}
-			for (j=0;j<N;j++){
-				dist=distance(X,Y,i,j);
-				if (dist<=pow(s,2)){
-					s1_temp=exp(-1*pow(dist,2)/(2*pow(s,2)));
-					for (z=0;z<dim;z++){
-						temp[j][z]=X[j][z];
-						temp[j][z]*=s1_temp;
-						temp_vect[z]+=temp[j][z];
-					}
-					s2+=exp(-1*pow(dist,2)/(2*pow(s,2)));
-				}
-			}
-			for(z=0;z<dim;z++){
-				temp_vect[z]=temp_vect[z]/s2;
-			}
-			for (j=0;j<dim;j++){
-				m_vect[j]=temp_vect[j]-Y[i][j];
-				Y[i][j]=temp_vect[j];
-				m_norm+=pow(m_vect[j],2)
-			}
-			m_norm=sqrt(m_norm);
-		}
-	}*/
+	cudaMemcpy2D(Y,pitch,Y_dev,dim*sizeof(double),dim*sizeof(double),size,cudaMemcpyDeviceToHost);
 }
 
 __device__ double distance(double** X,double** Y,int i,int j){
