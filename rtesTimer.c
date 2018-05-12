@@ -1,4 +1,4 @@
-//Gklaras Argyrios 7358 rtesTimer
+//7358 rtesTimer
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
