@@ -1,4 +1,4 @@
-//Simple message server, allowing 50 clients connected at the same time and 50 in queue//
+//Simple message server, allowing 20 clients connected at the same time and 50 in queue//
 #include <stdio.h>
 #include <sys/types.h> 
 #include <sys/socket.h>
