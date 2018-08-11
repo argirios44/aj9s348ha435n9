@@ -1,9 +1,4 @@
-/* A simple client program to communicate with the corresponding
-   server executable.
-   The IP and TCP port are passed as arguments.
-   
-   Rensselaer Polytechnic Institute (RPI)
-*/
+//client//
 
 #include <stdio.h>
 #include <sys/types.h>
