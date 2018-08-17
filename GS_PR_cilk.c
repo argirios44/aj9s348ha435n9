@@ -86,15 +86,9 @@ void main(int argc,char **argv){
 	d=malloc(n*sizeof(int));
 	v=malloc(n*sizeof(long double));
 	//e=malloc(n*sizeof(int));
-	P=(long double **)malloc(N*sizeof(long double *));
-	//D=(long double **)malloc(N*sizeof(long double *));
-	//F=(long double **)malloc(N*sizeof(long double *));
-	//A=(long double **)malloc(N*sizeof(long double *));
+	P=(long double **)malloc(N*sizeof(long double *));	
 	for (i = 0; i < N; i ++){
 		P[i] = (long double *)malloc(N*sizeof(long double));
-		//D[i] = (long double *)malloc(N*sizeof(long double));
-		//F[i] = (long double *)malloc(N*sizeof(long double));
-		//A[i] = (long double *)malloc(N*sizeof(long double));
 		for (j = 0; j < N; j ++){
 				P[i][j] = 0;
 		}
@@ -127,38 +121,6 @@ void main(int argc,char **argv){
 			}
 		}
 	}
-	//3. Find P'
-	/*for (i=0;i<n;i++) {
-		v[i]=(long double)1/n;
-		//e[i]=1;
-	}
-	for(i=0;i<N;i++){
-		for(j=0;j<N;j++){
-			D[i][j]=d[i]*v[j];
-			P[i][j]+=D[i][j];
-		}
-	}	
-	//4. Find P''
-	for(i=0;i<N;i++){
-		for(j=0;j<N;j++){
-			F[i][j]=e[i]*v[j];
-			P[i][j]=c*P[i][j]+(1-c)*F[i][j];//<--P''
-		}
-	}
-	//5. Find A=transpose(P'')
-	for(i=0;i<N;i++){
-		for(j=0;j<N;j++){
-			A[i][j]=P[i][j];
-		}
-	}
-	//6. Normalize A columnwise
-	/*for(i=0;i<N;i++){
-		sum =0;
-		for(j=0;j<N;j++){
-			sum+=A[j][i];
-		}
-			A[i][j]=A[i][j]/sum;
-	}*/
 //***********************************************************************************//	
 	x=malloc(n*sizeof(long double));
 	dx=malloc(n*sizeof(long double));
