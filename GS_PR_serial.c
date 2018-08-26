@@ -5,7 +5,7 @@
 #include <math.h>
 #include <string.h>
 //OPTIONS
-	long double tol=0.00000000001;
+	long double tol=0.000001;
 	int maxiter=500,n;
 	long double c=0.85;
 //FUNCTIONS//
