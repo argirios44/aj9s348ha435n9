@@ -1,7 +1,8 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
 #include <string>
+#include <time.h>
 #include <cuda_runtime.h>
 #include <cusparse.h>
 //using namespace std;
@@ -80,6 +81,7 @@ int main(int argc, char** argv) {
 		printf("%d %d %d\n", cooRowIndexHostPtr[nnz - 1], cooColIndexHostPtr[nnz - 1], cooValHostPtr[nnz - 1]);
 	*/
 	//Allocate GPU Memory and copy data
+	clock_t start = clock();
 	cudaStat1 = cudaMalloc((void**)&cooRowIndex, nnz * sizeof(cooRowIndex[0]));
 	cudaStat2 = cudaMalloc((void**)&cooColIndex, nnz * sizeof(cooColIndex[0]));
 	cudaStat3 = cudaMalloc((void**)&cooVal, nnz * sizeof(cooVal[0]));
@@ -194,5 +196,7 @@ int main(int argc, char** argv) {
 		Hadamard_kernel <<<dimGrid, dimBlock >>> (A,C,Out,n);
 	}
 	//results
-	printf("\nTime taken: %d");
+	clock_t end = clock();
+	float seconds = (float)(end - start) / CLOCKS_PER_SEC;
+	printf("\nTime taken: %f",seconds);
 }
